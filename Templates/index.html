@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" style="background-color: #0056b3; padding: 10px 20px;height: 80px; display: flex; justify-content: space-between; align-items: center;">
+
+        <div class="logo" style="font-size:28px;">BookingBuddy.com</div>
+        <div class="nav-links" style="font-size:28px; color:#333; padding:10px 20px; height:80px; display:flex; justify-content:space-between; align-items:center;">
+            {% if "user" in session %}
+                <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn">Log in</a>
+                <a href="{{url_for('register')}}" class="btn">Sign in</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Flash Message Section -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Search Bar -->
+    <section class="search-section">
+        
+        <h1>WELCOME TO BOOKING BUDDY </h1>
+        <p style="color:white;font-size: 30px;font-style: poppins;font-weight: 600;">Where Comfort Meets Convenience.</p>
+        
+    </section>
+
+    <section class="offers-section">
+        <h2 style ="font-size: 38px;" >Offers Available</h2>
+        <p style = "margin-left: 780px;">Promotions, deals, and special offers for you</p>
+        
+        <div class="offers-carousel">
+            <div class="offer-card">
+                <div class="offer-content">
+                    <h3>Save on stays worldwide</h3>
+                    <p>Start your year with a sense of adventure, saving 15% or more with Early 2025 Deals.</p>
+                    <button class="btn btn-primary offer-btn" data-discount="15OFF">Save 15% or more</button>
+                </div>
+                <img src="{{ url_for('static', filename='offer1.jpg') }}" alt="Offer Image">
+            </div>
+    
+            <div class="offer-card">
+                <div class="offer-content">
+                    <h3>Exclusive Discounts for Members</h3>
+                    <p>Sign up as a Genius Member and get up to 20% off on selected hotels.</p>
+                    <button class="btn btn-primary offer-btn" data-discount="GENIUS20">Join for Free</button>
+                </div>
+                <img src="{{ url_for('static', filename='offer2.jpg') }}" alt="Offer Image">
+            </div>
+    
+            <div class="offer-card">
+                <div class="offer-content">
+                    <h3>Last-Minute Deals</h3>
+                    <p>Book your stay within the next 24 hours and enjoy unbeatable prices.</p>
+                    <button class="btn btn-primary offer-btn" data-discount="LASTMIN10">Find Deals</button>
+                </div>
+                <img src="{{ url_for('static', filename='offer3.jpg') }}" alt="Offer Image">
+            </div>
+    
+            <div class="offer-card">
+                <div class="offer-content">
+                    <h3>Extended Stays, More Savings</h3>
+                    <p>Stay for a week or more and get special long-stay discounts.</p>
+                    <button class="btn btn-primary offer-btn">View Offers</button>
+                </div>
+                <img src="{{ url_for('static', filename='offer4.jpg') }}" alt="Offer Image">
+            </div>
+        </div>
+    </section>
+
+
+    <div id="couponModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>🎉 Your Coupon Code:</h3>
+            <p id="couponCode"></p>
+            <button id="copyCoupon" class="btn btn-success">Copy Code</button>
+        </div>
+    </div>
+
+
+    <!-- Deals of the Day Section -->
+    <section class="deals-section">
+        <h2 style ="font-size: 38px;">Deals of the Day</h2>
+        <div class="deals-container">
+            {% for hotel in hotels %}
+                <div class="hotel-card">
+                    <img src="{{ url_for('static', filename=hotel.image) }}" alt="Hotel Image">
+                    <h3>{{ hotel.name }}</h3>
+                    <p>{{ hotel.location }}</p>
+                    <p><strong>₹ {{ hotel.price }}</strong> per night</p>
+                    <button class="btn btn-primary book-btn" data-hotel="{{ hotel.id }}">Book</button>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+
+    <!-- Hotel Reviews Section -->
+    <section class="hotel-reviews">
+        <h2>Real reviews for hotels</h2>
+        
+        <div class="review-slider">
+            <button class="prev-btn" onclick="document.getElementById('slider').scrollLeft -= 300;">&lt;</button>
+    
+            <div class="reviews-container" id="slider">
+                <div class="review">
+                    <p>Paris is one of the most beautiful cities in the world. The Eiffel Tower, the Louvre, and the charming streets make it a dream destination. However, be prepared for some crowds and high prices.</p>
+                    <p><strong>CHRISTOPHER</strong>, United Kingdom</p>
+                </div>
+                <div class="review">
+                    <p>The metro is the best way to get around. If you plan to use it a lot, get a 10-ticket pack or the Paris Visit pass. The transportation system is very efficient.</p>
+                    <p><strong>Belanger</strong>, Canada</p>
+                </div>
+                <div class="review">
+                    <p>Very beautiful city, but you need to prepare when you take the metro as there are long distances when changing lines. Walking around the city is also a great way to explore!</p>
+                    <p><strong>KinWa</strong>, Hong Kong SAR, China</p>
+                </div>
+                <div class="review">
+                    <p>New York is a fantastic place with lots to explore! Times Square is always busy but truly magical at night. The food scene is incredible, and there’s something for everyone.</p>
+                    <p><strong>Emily</strong>, USA</p>
+                </div>
+                <div class="review">
+                    <p>Tokyo is a city full of life and culture. The food is amazing, and the people are incredibly polite. Shibuya and Shinjuku are must-visit places for an unforgettable experience.</p>
+                    <p><strong>Hiroshi</strong>, Japan</p>
+                </div>
+            </div>
+    
+            <button class="next-btn" onclick="document.getElementById('slider').scrollLeft += 300;">&gt;</button>
+        </div>
+    </section>
+    
+
+    <!-- FAQ Section -->
+    <div class="faq-container">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3 class="faq-question">What’s the average price of a resort in this evening? <span class="arrow">▼</span></h3>
+            <p class="answer">The average price is around $150 per night, but it varies based on location and availability.</p>
+        </div>
+        <div class="faq-item">
+            <h3 class="faq-question">What are the best properties in best possible prices? <span class="arrow">▼</span></h3>
+            <p class="answer">Top-rated properties include The Peninsula Paris, Shangri-La Hotel, and Pullman Paris Tour Eiffel.</p>
+        </div>
+        <div class="faq-item">
+            <h3 class="faq-question">What accommodations have the best views? <span class="arrow">▼</span></h3>
+            <p class="answer">Hotels like Hotel Plaza Athénée and Le Meurice offer stunning city views.</p>
+        </div>
+        <div class="faq-item">
+            <h3 class="faq-question">What resorts in Paris are highly rated with regard to location? <span class="arrow">▼</span></h3>
+            <p class="answer">Hotel de Crillon and The Ritz Paris are known for their prime locations.</p>
+        </div>
+        <div class="faq-item">
+            <h3 class="faq-question">What accommodations in India are rated best for service? <span class="arrow">▼</span></h3>
+            <p class="answer">La Réserve Paris and Saint James Paris have exceptional service ratings.</p>
+        </div>
+    </div>
+
+      <!-- Footer Section -->
+      <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li>Coronavirus (COVID-19) FAQs</li>
+                    <li>Manage your trips</li>
+                    <li>Contact Customer Service</li>
+                    <li>Safety resource centre</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Discover</h3>
+                <ul>
+                    <li>Genius loyalty programme</li>
+                    <li>Seasonal and holiday deals</li>
+                    <li>Travel articles</li>
+                    <li>Booking.com for Business</li>
+                    <li>Traveller Review Awards</li>
+                    <li>Car hire</li>
+                    <li>Flight finder</li>
+                    <li>Restaurant reservations</li>
+                    <li><a href="#">Booking.com for Travel Agents</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Terms and settings</h3>
+                <ul>
+                    <li>Privacy & cookies</li>
+                    <li>Terms and conditions</li>
+                    <li>Grievance officer</li>
+                    <li>Modern Slavery Statement</li>
+                    <li>Human Rights Statement</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Partners</h3>
+                <ul>
+                    <li>Extranet login</li>
+                    <li>Partner help</li>
+                    <li>List your property</li>
+                    <li>Become an affiliate</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>About</h3>
+                <ul>
+                    <li>About Booking.com</li>
+                    <li>How we work</li>
+                    <li>Sustainability</li>
+                    <li>Press centre</li>
+                    <li>Careers</li>
+                    <li>Investor relations</li>
+                    <li>Corporate contact</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sumit Goswami. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        setTimeout(function() {
+            let alerts = document.querySelectorAll(".alert");
+            alerts.forEach(alert => alert.style.display = "none");
+        }, 3000);
+    </script>
+
+
+<!-- <script>
+    function checkLogin(event) {
+        var isLoggedIn = "{{ 'true' if 'user' in session else 'false' }}" === "true"; 
+
+        if (!isLoggedIn) {  // If user is not logged in
+            event.preventDefault(); // Prevent button action
+            alert("Please login first to continue!");
+            window.location.href = "{{ url_for('login') }}";  // Redirect to login page
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let buttons = document.querySelectorAll("button, .book-now");
+        buttons.forEach(button => {
+            button.addEventListener("click", checkLogin);
+        });
+    });
+</script> -->
+
+<!-- <script>
+    function checkLogin(event) {
+        var isLoggedIn = "{{ 'true' if 'user' in session else 'false' }}" === "true";
+
+        // Check if the clicked button has class "book-btn"
+        if (!isLoggedIn && event.target.classList.contains("book-btn")) {
+            event.preventDefault(); // Prevent default action
+            alert("Please login first to continue!");
+            window.location.href = "{{ url_for('login') }}";  // Redirect to login page
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let bookButtons = document.querySelectorAll(".book-btn");  // Select only "Book" buttons
+        bookButtons.forEach(button => {
+            button.addEventListener("click", checkLogin);
+        });
+    });
+</script> -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var isLoggedIn = "{{ 'true' if 'user' in session else 'false' }}" === "true";
+
+        document.querySelectorAll(".book-btn").forEach(button => {
+            button.addEventListener("click", function (event) {
+                if (!isLoggedIn) {
+                    event.preventDefault();
+                    alert("Please login first to continue!");
+                    window.location.href = "{{ url_for('login') }}";
+                } else {
+                    // Redirect to booking details page with hotel ID
+                    const hotelId = this.getAttribute("data-hotel");
+                    window.location.href = "{{ url_for('booking') }}?hotel_id=" + encodeURIComponent(hotelId);
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".offer-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                // Generate a random coupon code
+                const couponCode = "HOTEL" + Math.floor(1000 + Math.random() * 9000);
+
+                // Show the coupon code to the user
+                alert("🎉 Congratulations! You've got a discount coupon: " + couponCode);
+            });
+        });
+    });
+</script>
+
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const offerButtons = document.querySelectorAll(".offer-btn");
+        const modal = document.getElementById("couponModal");
+        const closeModal = document.querySelector(".close");
+        const couponCodeText = document.getElementById("couponCode");
+        const copyButton = document.getElementById("copyCoupon");
+
+        offerButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                let coupon = this.getAttribute("data-discount");
+                couponCodeText.textContent = coupon;
+                modal.style.display = "block";
+            });
+        });
+
+        // Close Modal
+        closeModal.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+
+        // Copy Coupon Code
+        copyButton.addEventListener("click", function () {
+            navigator.clipboard.writeText(couponCodeText.textContent).then(() => {
+                alert("Coupon copied to clipboard! 🎉");
+            });
+        });
+
+        // Close Modal if clicked outside
+        window.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

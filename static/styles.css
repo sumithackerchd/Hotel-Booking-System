@@ -1,0 +1,841 @@
+/* General Page Styling */
+body {
+    font-family: poppins;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+.header {
+    background-color: #0056b3;
+   /* Dark blue like Booking.com */
+    color: white;
+    padding: 15px 20px;
+    display: flex ;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header a {
+    color: white; 
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 15px;
+    font-size: 40px;
+}
+
+/* Main Banner */
+.banner {
+    background-color: #003580;
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    
+}
+
+.banner h1 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+
+}
+
+.search-bar input,
+.search-bar select {
+    padding: 12px;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.search-bar button {
+    background-color: #0071c2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.search-bar button:hover {
+    background-color: #005fa3;
+}
+
+/* Footer */
+.footer {
+    background-color: #111;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:#007bff;
+    padding: 15px;
+    color: white;
+
+}
+
+.nav-links a {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+}
+.nav-item{
+    font-size: 24px;
+    font-family: poppins;
+    margin-right:0px;
+}
+.navbar-brand{
+    font-size: 24px;
+    font-family: poppins;
+    margin-right:0px;
+    color: white;
+
+}
+
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li {
+    display: inline;
+}
+nav ul li a {
+    font-size: 80px;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue background */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px; /* Rounded edges */
+    display: inline-block;
+}
+
+nav ul li a:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+
+.search-section h1{
+    font-family: poppins;
+    font-size: 86px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+
+}
+
+.search-section {
+    text-align: center;
+    padding: 50px;
+    background-image: url('background.png');
+    
+
+    color: white;
+    height: 400px;
+    background-position: center;
+    background-size: cover;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    background-color: white ;
+    color: #0071c2;
+}
+
+.search-box input,
+.search-box select {
+    padding: 10px;
+    width: 200px;
+    background-color: white ;
+    color: #0071c2;
+}
+
+.search-btn {
+    padding: 10px 20px;
+    background-color: white ;
+    color: #0071c2;
+    border: none;
+    cursor: pointer;
+}
+
+.deals-section {
+    padding: 20px;
+}
+
+.deals-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+}
+
+.scroll-wrapper {
+    display: flex;
+    gap: 15px;
+}
+
+.hotel-card {
+    display: inline-block;
+    width: 250px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+}
+
+.hotel-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.book-now {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+.offers-section {
+    margin: 30px 0;
+    padding: 20px;
+    text-align: left;
+}
+
+.offers-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.offers-section p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.offers-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 10px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+}
+
+.offers-carousel::-webkit-scrollbar {
+    height: 6px;
+}
+
+.offers-carousel::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+.offer-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 350px;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+}
+
+.offer-content {
+    flex: 1;
+    text-align: left;
+}
+
+.offer-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.offer-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+
+
+/* Center the reviews section */
+.hotel-reviews {
+    text-align: center;
+    padding: 20px;
+}
+
+.review-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    max-width: 600px;
+    margin: auto;
+}
+
+
+.reviews-container {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    max-width: 700px;
+    padding: 20px;
+    white-space: nowrap;
+}
+
+.reviews-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+}
+
+
+.review {
+    flex: 0 0 100%;
+    min-width: 100%;
+    max-width: 700px; /* Keep width */
+    padding: 20px;
+    background: linear-gradient(135deg, #2135b7, #5b8dbe);
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    scroll-snap-align: start;
+    text-align: center;
+
+    /* Adjust height */
+    max-height: auto;  /* Auto height to fit content */
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Ensuring enough space */
+
+    /* Prevent text overflow */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal; /* Ensures text wraps naturally */
+    line-height: 1.5;
+    font-size: 18px;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+.review p strong {
+    font-size: 20px;
+    color: #007bff
+}
+
+button {
+    background-color: #007BFF;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+/* FAQ Section Styling */
+.faq-container {
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+ .container {
+    width: 100%;        /* Makes the container take the full width */
+    max-width: 100vw;   /* Ensures it does not exceed the viewport width */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+.faq-item {
+    margin-bottom: 15px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.faq-item:nth-child(odd) .faq-question {
+    background: #003580;  /* Blue color */
+    color: #fff;
+}
+
+.faq-question {
+    font-size: 18px;
+    font-weight: bold;
+    background: #e0e0e0;
+    padding: 15px;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-question:hover {
+    background: #e0e0e0;
+}
+
+.faq-question span {
+    transition: transform 0.3s;
+    font-size: 20px;
+}
+
+.faq-answer {
+    display: none;
+    padding: 10px;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Active Class for FAQ */
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+.faq-item.active .faq-question span {
+    transform: rotate(180deg);
+}
+
+.faq-question.active {
+    background: #007bff;
+    color: white;
+}
+
+.faq-question .arrow {
+    transition: transform 0.3s;
+}
+
+.faq-question.active .arrow {
+    transform: rotate(180deg);
+}
+
+.answer {
+    display: none;
+    padding: 10px;
+    background: white;
+    border-left: 3px solid #007bff;
+    font-size: 16px;
+}
+
+
+
+/* Footer Styling */
+.footer {
+    background-color: #003580;
+    color: #fff;
+    padding: 40px 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    
+}
+
+/* Footer Styles */
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Ensures even spacing */
+    text-align: left;
+    max-width: 1200px; /* Restrict width to keep elements aligned */
+    margin: 0 auto; /* Center the footer */
+    padding: 0 20px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 180px; /* Ensures even column width */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.footer-column h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.footer-column ul li a {
+    color: #bbb;
+    text-decoration: none;
+}
+
+.footer-column ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #bbb;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 992px) {
+    .footer-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .footer-column {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .footer-column {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
+/* Footer Links Hover Effect */
+.footer-column ul li a {
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1); /* Light background highlight */
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* FAQ Section Hover Effect */
+.faq-item {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.faq-item:hover {
+    background-color: #e3e3e3;
+    transform: scale(1.02);
+}
+
+/* Navbar Links Hover Effect */
+.nav-links a {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffcc00;
+}
+
+/* Button Hover Effect */
+.search-btn, .btn {
+    background-color: #0071c2;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-btn:hover, .btn:hover {
+    background-color: #005fa3;
+    transform: scale(1.05);
+}
+
+
+/* Footer Text and Links Hover Effect */
+.footer-column ul li, 
+.footer-column ul li a, 
+.footer-column h3 {
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.footer-column ul li:hover, 
+.footer-column ul li a:hover, 
+.footer-column h3:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1); /* Light highlight effect */
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+ .hotel-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+}
+
+.hotel-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.hotel-card:hover {
+    transform: scale(1.02);
+}
+
+/* Hotel Image */
+.hotel-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Hotel Name */
+ .hotel-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+} 
+
+.hotel-name:hover {
+    text-decoration: underline;
+}
+
+/* Hotel Location */
+.hotel-location {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Filter Sidebar */
+ .col-md-3 {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} 
+
+/* Hotel Cards Container */
+.hotel-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+} 
+
+/* Grid System */
+.row-cols-md-3 > .col {
+    flex: 0 0 32%;
+    max-width: 32%;
+} 
+
+/* Prevent Overflow */
+.hotel-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+} 
+
+
+
+aside {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Hotel Cards */
+.hotel-card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.hotel-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Hotel Name Links */
+.hotel-name {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.hotel-name:hover {
+    text-decoration: underline;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+
+
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    margin: 15% auto;
+    width: 300px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#copyCoupon {
+    margin-top: 10px;
+}
+
+
+.check-availability, .book-btn {
+    background-color: #007bff; /* Same color as Check Availability */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+.book-btn {
+    margin-top: 10px; /* Adds gap between buttons */
+}
+
+.check-availability:hover, .book-btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+
+
+
+
+
+
+
+
+.search-container {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #0056b3; /* Dark blue background */
+    color: white;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.search-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 180px;
+}
+
+.search-btn {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background-color: #0056b3;
+   
+}
+
+

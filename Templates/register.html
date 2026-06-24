@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title_block %}Register{% endblock %}
+
+{% block main_block %}
+<div class="container">
+    <h2>Register</h2>
+    <form action="{{ url_for('register') }}" method="POST">
+        <div class="mb-3">
+            <label for="name">Full Name:</label>
+            <input type="text" name="name" id="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" required
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}"
+            title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.">
+            <button type="button" class="btn btn-secondary" onclick="togglePassword('password', 'password-toggle')" id="password-toggle">Show </button>
+        </div>
+        <div class="mb-3">
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm_password" class="form-control" required>
+            <button type="button" class="btn btn-secondary" onclick="togglePassword('confirm-password', 'confirm-password-toggle')" id="confirm-password-toggle">Show</button>
+        </div>
+        <div class="mb-3">
+            <label for="mobile">Mobile:</label>
+            <input type="text" name="mobile" id="mobile" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" class="form-control" required>
+        </div>
+
+
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+    <p>Already registered? <a href="{{ url_for('login') }}">Login here</a></p>
+</div>
+
+
+<script>
+    // Function to toggle password visibility
+    function togglePassword(fieldId, toggleId) {
+        let passwordField = document.getElementById(fieldId);
+        let toggleButton = document.getElementById(toggleId);
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleButton.innerText = "Hide";
+        } else {
+            passwordField.type = "password";
+            toggleButton.innerText = "Show";
+        }
+    }
+
+    // Function to validate form before submitting
+    function validateForm() {
+        let password = document.getElementById("password").value;
+        let confirmPassword = document.getElementById("confirm-password").value;
+        let errorMessage = document.getElementById("password-error");
+
+        if (password !== confirmPassword) {
+            errorMessage.style.display = "block";
+            return false; // Prevent form submission
+        } else {
+            errorMessage.style.display = "none";
+            return true;
+        }
+    }
+</script>
+
+
+{% endblock %}

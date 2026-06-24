@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block title_block %}Hotels in Paris{% endblock %}
+
+{% block main_block %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="container-fluid mt-4">
+    <div class="search-container p-4 bg-primary text-white rounded">
+        <h2 class="text-center" style="color: white; font-weight: bold; margin-top: 30px; font-size: 50px;font-family: Poppins;font-weight: 700;">Find your next stay</h2>
+
+        <div class="search-bar d-flex justify-content-center flex-wrap gap-2">
+            <input id="location" type="text" class="form-control w-auto" placeholder="Where are you going?" required>
+            <input id="check-in" type="date" class="form-control w-auto" required>
+            <input id="check-out" type="date" class="form-control w-auto" required>
+            <select id="guests" class="form-control w-auto" required>
+                <option value="1">1 adult · 0 children · 1 room</option>
+                <option value="2">2 adults · 0 children · 1 room</option>
+                <option value="3">2 adults · 1 child · 1 room</option>
+                <option value="4">2 adults · 2 children · 1 room </option>
+                <option value="5">3 adults · 0 children · 1 room</option>
+                <option value="6">4 adults · 0 children · 2 room</option>
+                <option value="7">4 adults · 1 children · 2 room</option>
+                <option value="8">4 adults · 2 children · 2 room</option>
+               
+            </select>
+            <button id="search-btn" class="btn btn-light">Search</button>
+        </div>
+    </div>
+</div>
+
+<div id="hotels-container" class="mt-4">
+    <h3>Available Hotels</h3>
+    <div id="hotels-list"></div>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Sidebar Filters -->
+        <aside class="col-lg-3 col-md-4 col-12">
+            <div class="p-3 border rounded bg-light sticky-top">
+                <form id="filterForm" method="GET" action="{{ url_for('hotels') }}">
+                    <!-- Star Rating -->
+                    <h4>Star Rating</h4>
+                    <div>
+                        <label><input type="checkbox" name="star" value="5"> 5 stars</label> <br>
+                        <label><input type="checkbox" name="star" value="4"> 4 stars</label> <br>
+                        <label><input type="checkbox" name="star" value="3"> 3 stars</label> <br>
+                        <label><input type="checkbox" name="star" value="2"> 2 stars</label> <br>
+                        <label><input type="checkbox" name="star" value="1"> 1 star</label> <br>
+                    </div>
+
+                    <!-- Review Score -->
+                    <h4 class="mt-4">Review Score</h4>
+                    <div>
+                        <label><input type="checkbox" name="review" value="9"> Exceptional 9+</label> <br>
+                        <label><input type="checkbox" name="review" value="8"> Very good 8+</label> <br>
+                        <label><input type="checkbox" name="review" value="7"> Good 7+</label> <br>
+                        <label><input type="checkbox" name="review" value="6"> Pleasant 6+</label> <br>
+                    </div>
+
+                    <!-- Price Range -->
+                    <h4 class="mt-4">Price Range</h4>
+                    <input type="range" class="form-range" min="1000" max="50000" step="500" id="priceRange" name="max_price" value="25000">
+                    <p>₹<span id="priceValue">25000</span></p>
+
+                    <!-- Property Type -->
+                    <h4 class="mt-4">Property Type</h4>
+                    <select class="form-select" name="property_type">
+                        <option value="">All</option>
+                        <option value="hotel">Hotel</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="resort">Resort</option>
+                        <option value="villa">Villa</option>
+                    </select>
+
+                    <!-- Room Type -->
+                    <h4 class="mt-4">Room Type</h4>
+                    <div>
+                        <label><input type="checkbox" name="room_type" value="single"> Single Room</label> <br>
+                        <label><input type="checkbox" name="room_type" value="double"> Double Room</label> <br>
+                        <label><input type="checkbox" name="room_type" value="suite"> Suite</label> <br>
+                        <label><input type="checkbox" name="room_type" value="family"> Family Room</label> <br>
+                    </div>
+
+                    <!-- Facilities -->
+                    <h4 class="mt-4">Facilities</h4>
+                    <div>
+                        <label><input type="checkbox" name="facilities" value="wifi"> Free Wi-Fi</label> <br>
+                        <label><input type="checkbox" name="facilities" value="parking"> Parking</label> <br>
+                        <label><input type="checkbox" name="facilities" value="pool"> Swimming Pool</label> <br>
+                        <label><input type="checkbox" name="facilities" value="spa"> Spa & Wellness</label> <br>
+                        <label><input type="checkbox" name="facilities" value="pet"> Pet-Friendly</label> <br>
+                    </div>
+
+                    <button class="btn btn-primary w-100 mt-3" id="applyFilters">Apply Filters</button>
+                </form>
+            </div>
+        </aside>
+
+
+        <!-- Hotel Listings -->
+        <main class="col-lg-9 col-md-8 col-12">
+            <div class="d-flex flex-wrap gap-2 mb-3">
+                <button class="btn btn-primary flex-fill">Our Top Picks</button>
+                <button class="btn btn-outline-secondary flex-fill">Lowest Price First</button>
+                <button class="btn btn-outline-secondary flex-fill">Nearest to</button>
+                <button class="btn btn-outline-secondary flex-fill">Best Reviewed</button>
+            </div>
+
+            <div class="row">
+                {% if hotels %}
+                    {% for hotel in hotels %}
+                    <div class="col-lg-4 col-md-6 col-12 mb-4">
+                        <div class="card hotel-card shadow-sm">
+                            <img src="{{ url_for('static', filename='images/' + hotel.image) }}" class="card-img-top" alt="{{ hotel.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="#" class="hotel-name">{{ hotel.name }}</a>
+                                </h5>
+                                <p class="hotel-location">📍 <strong>Location:</strong> {{ hotel.location }}</p>
+                                <p>💰 <strong>Price:</strong> ₹{{ hotel.price }} per night</p>
+                                <p>⭐ <strong>Rating:</strong> {{ hotel.rating }} ({{ hotel.reviews }} reviews)</p>
+                                <button class="btn btn-primary w-100 check-availability" data-hotel="{{ hotel.name }}">
+                                    Check Availability
+                                </button>
+                                <button class="book-btn" data-hotel-id="{{ hotel.id }}" data-hotel-name="{{ hotel.name }}" data-hotel-price="{{ hotel.price }}">Book</button>
+                                <p class="availability-status text-success mt-2" id="availability-{{ hotel.name|replace(' ', '-') }}"></p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center w-100">No hotels match the selected filters.</p>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // 📌 Ensure the price range updates correctly
+    document.getElementById("priceRange").addEventListener("input", function() {
+        document.getElementById("priceValue").innerText = this.value;
+    });
+
+    // 📌 Use Event Delegation for Booking Buttons
+    document.body.addEventListener("click", function(event) {
+        if (event.target.classList.contains("book-btn")) {
+            let hotelId = event.target.getAttribute("data-hotel-id");
+            let hotelName = event.target.getAttribute("data-hotel-name");
+            let hotelPrice = event.target.getAttribute("data-hotel-price");
+
+            // Redirect to the payment page
+            window.location.href = `/payment?hotel_id=${hotelId}&hotel_name=${encodeURIComponent(hotelName)}&price=${hotelPrice}`;
+        }
+    });
+
+    // 📌 Use Event Delegation for "Check Availability" Buttons
+    document.body.addEventListener("click", function(event) {
+        if (event.target.classList.contains("check-availability")) {
+            let hotelName = event.target.getAttribute("data-hotel");
+            let statusElement = document.getElementById("availability-" + hotelName.replace(/\s+/g, '-'));
+
+            fetch(`/availability/${encodeURIComponent(hotelName)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.available_rooms !== undefined) {
+                        statusElement.innerText = `Available Rooms: ${data.available_rooms}`;
+                    } else {
+                        statusElement.innerText = "Availability data not found.";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching availability:", error);
+                    statusElement.innerText = "Error checking availability.";
+                });
+        }
+    });
+});
+
+</script>
+
+
+
+
+
+
+
+
+<script>
+// New hotel data array
+const hotels = [
+    { "name": "Hotel WK Comfort", "location": "New Delhi, India", "price": 4558, "image": "hotel1.jpg" },
+    { "name": "FabHotel Atithi Residency", "location": "Mumbai, India", "price": 4544, "image": "hotel2.jpg" },
+    { "name": "Virasat Mahal Heritage Hotel", "location": "Jaipur, India", "price": 4664, "image": "hotel3.jpg" },
+    { "name": "Hotel Calabash Luxury Villa", "location": "Delhi Airport, India", "price": 2477, "image": "hotel4.jpg" },
+    { "name": "The Grand Palace", "location": "Bangalore, India", "price": 5999, "image": "hotel5.jpg" },
+    { "name": "Regal Residency", "location": "Chennai, India", "price": 3899, "image": "hotel6.jpg" },
+    { "name": "Ocean View Suites", "location": "Goa, India", "price": 7299, "image": "hotel7.jpg" },
+    { "name": "Mountain Retreat", "location": "Manali, India", "price": 3299, "image": "hotel8.jpg" },
+    { "name": "Luxury Stay Inn", "location": "Kolkata, India", "price": 4899, "image": "hotel9.jpg" },
+    { "name": "Sunrise Hotel", "location": "Pune, India", "price": 4199, "image": "hotel10.jpg" },
+    { "name": "Eiffel Panorama Hotel", "location": "Eiffel Tower", "price": 18000, "image": "hotel11.jpg" },
+    { "name": "Seine River Stay", "location": "Pune", "price": 12000, "image": "hotel4.jpg" },
+    { "name": "Historic Charm Hotel", "location": "Louvre", "price": 15000, "rating": 5, "reviews": 1300, "image": "hotel5.jpg", "room_type": "Suite" },
+    { "name": "Affordable Paris Stay", "location": "Gare du Nord", "price": 7000, "rating": 3, "reviews": 700, "image": "hotel6.jpg", "room_type": "Standard" },
+    { "name": "Business Class Hotel", "location": "La Défense", "price": 20000, "rating": 4, "reviews": 1000, "image": "hotel7.jpg", "room_type": "Executive" },
+    { "name": "Romantic Getaway", "location": "Pune", "price": 22000, "rating": 5, "reviews": 1500, "image": "hotel8.jpg", "room_type": "Suite" }
+];
+
+// Function to handle booking action
+function bookHotel(hotelName) {
+    alert(`You have booked ${hotelName}!`);
+}
+
+// Function to filter hotels based on user input
+function searchHotels() {
+    const location = document.getElementById("location").value.trim().toLowerCase();
+    const checkIn = document.getElementById("check-in").value;
+    const checkOut = document.getElementById("check-out").value;
+    const guests = document.getElementById("guests").value;
+
+    // Filter hotels based on location (you can add more filters like dates, guests, etc.)
+    const filteredHotels = hotels.filter(hotel => hotel.location.toLowerCase().includes(location));
+
+    // Display the filtered hotels
+    const hotelsList = document.getElementById("hotels-list");
+    hotelsList.innerHTML = ""; // Clear previous results
+
+    if (filteredHotels.length > 0) {
+        filteredHotels.forEach(hotel => {
+            const hotelCard = document.createElement("div");
+            hotelCard.classList.add("card", "shadow-sm", "border-light", "rounded", "d-flex");
+            hotelCard.style = "max-width: 350px; width: 100%; flex-shrink: 0;"; // Ensures cards don't shrink and stay in row
+
+            hotelCard.innerHTML = `
+                <img src="${hotel.image}" class="card-img-top" alt="${hotel.name}">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">${hotel.name}</h5>
+                    <p class="card-text"><strong>Location:</strong> ${hotel.location}</p>
+                    <p class="card-text"><strong>Price:</strong> ₹${hotel.price}</p>
+                    <p class="card-text"><strong>Rating:</strong> ${hotel.rating ? hotel.rating : "N/A"} stars</p>
+                    <button class="btn btn-primary mt-auto" onclick="bookHotel('${hotel.name}')">Book</button>
+                </div>
+            `;
+            hotelsList.appendChild(hotelCard);
+        });
+    } else {
+        hotelsList.innerHTML = "<p>No hotels found in this location.</p>";
+    }
+}
+
+// Add event listener to the search button
+document.getElementById("search-btn").addEventListener("click", searchHotels);
+</script>
+
+
+
+{% endblock %}
